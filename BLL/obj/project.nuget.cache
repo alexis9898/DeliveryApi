@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "LTpi9IE4FaoWPQQ8Bc2iR+YhwhgZ1Z9YnVKdzKMWRM78cE67BnFSr/e4YMIcWOzo4d+306uD5tkTxEG7xg4KaA==",
+  "dgSpecHash": "Dcom4u9uQOgKTgwv70UufyP/9r92tG/F6Pm/vTjm0yDjsmRE83toU9ZkGhxqur9CHtuP3RKuqXTBKd7/c41ovg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Alex\\Desktop\\Delivery-Management\\BLL\\BLL.csproj",
+  "projectFilePath": "C:\\Users\\Alex\\Desktop\\Delivery-api\\BLL\\BLL.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

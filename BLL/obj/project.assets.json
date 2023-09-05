@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Alex\\Desktop\\Delivery-Management\\BLL\\BLL.csproj",
+      "projectUniqueName": "C:\\Users\\Alex\\Desktop\\Delivery-api\\BLL\\BLL.csproj",
       "projectName": "BLL",
-      "projectPath": "C:\\Users\\Alex\\Desktop\\Delivery-Management\\BLL\\BLL.csproj",
+      "projectPath": "C:\\Users\\Alex\\Desktop\\Delivery-api\\BLL\\BLL.csproj",
       "packagesPath": "C:\\Users\\Alex\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Alex\\Desktop\\Delivery-Management\\BLL\\obj\\",
+      "outputPath": "C:\\Users\\Alex\\Desktop\\Delivery-api\\BLL\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Alex\\AppData\\Roaming\\NuGet\\NuGet.Config",
