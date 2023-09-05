@@ -16,6 +16,7 @@ namespace Delivery_Management
 {
     public class Startup
     {
+        //bla bla
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
