@@ -8,6 +8,6 @@ namespace DAL.Data
 {
     public class Manager:User
     {
-
+        public List<Delivery> Deliveries { set; get; }
     }
 }

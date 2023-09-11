@@ -3,16 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Delivery-Management", "Delivery-Management\Delivery-Management.csproj", "{77504E91-A94D-47B8-8DAE-3D631F356554}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Delivery-Management", "Delivery-Management\Delivery-Management.csproj", "{77504E91-A94D-47B8-8DAE-3D631F356554}"
 	ProjectSection(ProjectDependencies) = postProject
 		{687FAB5F-30CB-4AA0-A89A-18B867EE884D} = {687FAB5F-30CB-4AA0-A89A-18B867EE884D}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{526E28C1-91E3-4D6A-81C1-07D6242755A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "DAL\DAL.csproj", "{526E28C1-91E3-4D6A-81C1-07D6242755A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "BLL\BLL.csproj", "{687FAB5F-30CB-4AA0-A89A-18B867EE884D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BLL", "BLL\BLL.csproj", "{687FAB5F-30CB-4AA0-A89A-18B867EE884D}"
 	ProjectSection(ProjectDependencies) = postProject
 		{526E28C1-91E3-4D6A-81C1-07D6242755A5} = {526E28C1-91E3-4D6A-81C1-07D6242755A5}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A4606174-FE53-4AB9-BC2B-BF98355EB823}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
 Global

@@ -15,14 +15,14 @@ namespace BLL.Service
 {
     public class AccountService:IAccountService
     {
-        private readonly UserManager<AppUser> _userManager;
-        private readonly SignInManager<AppUser> _signInManager;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _configuration;
 
         public AccountService(
-            UserManager<AppUser> userManager,
-            SignInManager<AppUser> signInManager,
+            UserManager<User> userManager,
+            SignInManager<User> signInManager,
             RoleManager<IdentityRole> roleManager,
             IConfiguration configuration)
         {
@@ -34,7 +34,7 @@ namespace BLL.Service
 
         public async Task<IdentityResult> SignUp(SignUpModel signUpModel)
         {
-            var user = new AppUser()
+            var user = new User()
             {
                 UserName = signUpModel.UserName,
                 
