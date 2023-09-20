@@ -10,5 +10,10 @@ namespace DAL.Data
     {
         public int Id { get; set; }
         public string Name { get; set; }
+
+        public List<Delivery> Deliveries { get; set; }
+        public List<DeliveryProducts> DeliveryProducts  { get; set; }
+
+
     }
 }

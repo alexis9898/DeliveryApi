@@ -11,8 +11,13 @@ namespace DAL.Interface
     {
         Task<List<Delivery>> GetDeliveriesAsync();
         Task<Delivery> AddCustomerAsync(Delivery delivery);
-        Task<List<Delivery>> GetDeliveriesFilterAsync(int deliveryId);
         Task<Delivery> GetDeliveryByIdAsync(int deliveryId);
+        Task<DeliveryProducts> ConectDeliveryProducts(DeliveryProducts deliveryProducts);
+        Task UpdateDelivery(Delivery delivery);
+        Task DeleteDelivery(Delivery delivery);
+        Task<List<Delivery>> GetDeliveriesFilterAsync(Delivery delivery);
+
+
 
     }
 }

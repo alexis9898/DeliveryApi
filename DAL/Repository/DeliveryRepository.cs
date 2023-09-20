@@ -20,20 +20,33 @@ namespace DAL.Repository
 
         public async Task<List<Delivery>> GetDeliveriesAsync()
         {
-            var deliveries =await  _context.Deliveries.ToListAsync();
+            var deliveries =await  _context.Deliveries
+                .Include(x=>x.Customer)
+                .Include(x=>x.Products)
+                .ToListAsync();
             return deliveries;
         }
 
         public async Task<Delivery> GetDeliveryByIdAsync(int deliveryId)
         {
-            var delivery = await _context.Deliveries.Where(x => x.Id == deliveryId).FirstOrDefaultAsync();
+            var delivery = await _context.Deliveries
+                .Where(x => x.Id == deliveryId)
+                .Include(x => x.Customer)
+                .Include(x => x.Products)
+                .FirstOrDefaultAsync();
             return delivery;
         }
-        public async Task<List<Delivery>> GetDeliveriesFilterAsync(int deliveryId)
+        // filter deliveries
+        public async Task<List<Delivery>> GetDeliveriesFilterAsync(Delivery delivery)
         {
-            var deliveries = await _context.Deliveries.Where(
-                x => x.Id == deliveryId
+            var deliveries = await _context.Deliveries.Where(x =>
+                (
+                    (delivery.ManagerId != null) ? x.ManagerId == delivery.ManagerId : x.ManagerId != null)
+                    && ((delivery.DeliveryPersonId != null)? x.DeliveryPersonId==delivery.DeliveryPersonId:x.DeliveryPersonId!=null)
+                    && ((delivery.CustomerId != 0 || delivery.ManagerId != null) ? x.ManagerId == delivery.ManagerId : x.ManagerId != null) 
                 )
+                .Include(x => x.Customer)
+                .Include(x => x.Products)
                 .ToListAsync();
             return deliveries;
         }
@@ -46,5 +59,31 @@ namespace DAL.Repository
             return delivery;
         }
 
+        //post FilmCategory
+        public async Task<DeliveryProducts> ConectDeliveryProducts(DeliveryProducts deliveryProducts)
+        {
+            _context.Add(deliveryProducts);
+            await _context.SaveChangesAsync();
+            return deliveryProducts;
+        }
+
+        // put/patch
+        public async Task UpdateDelivery(Delivery delivery)
+        {
+            _context.Deliveries.Update(delivery);
+            await _context.SaveChangesAsync();
+            return;
+        }
+
+        //delete
+        public async Task DeleteDelivery(Delivery delivery)
+        {
+            _context.Deliveries.Remove(delivery);
+            await _context.SaveChangesAsync();
+            return;
+
+        }
+
+       
     }
 }

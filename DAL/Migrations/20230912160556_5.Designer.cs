@@ -4,14 +4,16 @@ using DAL.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DAL.Migrations
 {
     [DbContext(typeof(AppDataContext))]
-    partial class AppDataContextModelSnapshot : ModelSnapshot
+    [Migration("20230912160556_5")]
+    partial class _5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -107,9 +109,6 @@ namespace DAL.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("DeliveryId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Amount")
                         .HasColumnType("int");
 
                     b.HasKey("ProductId", "DeliveryId");
@@ -393,13 +392,13 @@ namespace DAL.Migrations
             modelBuilder.Entity("DAL.Data.DeliveryProducts", b =>
                 {
                     b.HasOne("DAL.Data.Delivery", "Delivery")
-                        .WithMany("DeliveryProducts")
+                        .WithMany("Products")
                         .HasForeignKey("DeliveryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("DAL.Data.Product", "Product")
-                        .WithMany("DeliveryProducts")
+                        .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -464,12 +463,7 @@ namespace DAL.Migrations
                 {
                     b.Navigation("Comment");
 
-                    b.Navigation("DeliveryProducts");
-                });
-
-            modelBuilder.Entity("DAL.Data.Product", b =>
-                {
-                    b.Navigation("DeliveryProducts");
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("DAL.Data.DeliveryPersons", b =>

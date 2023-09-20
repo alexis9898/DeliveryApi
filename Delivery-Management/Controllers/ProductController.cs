@@ -1,5 +1,5 @@
 ﻿using BLL.Model;
-using BLL.Interfaces;
+using BLL.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace AppStorewww.Controllers
+namespace Delivery_Management.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -20,7 +20,7 @@ namespace AppStorewww.Controllers
         }
 
         [HttpGet("")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> GetProducts()
         {
             try
@@ -53,7 +53,7 @@ namespace AppStorewww.Controllers
         }
 
         [HttpPost("")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> AddNewProduct([FromBody] ProductModel productModel)
         {
             try

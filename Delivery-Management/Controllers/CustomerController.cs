@@ -1,5 +1,5 @@
 ﻿using BLL.Model;
-using BLL.Interfaces;
+using BLL.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using BLL.Interface;
 
-namespace AppStorewww.Controllers
+namespace Delivery_Management.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -69,7 +69,7 @@ namespace AppStorewww.Controllers
             }
         }
 
-        
+
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateProduct([FromBody] CustomerModel customerModel, [FromRoute] int id)
         {

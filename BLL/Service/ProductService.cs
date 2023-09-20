@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using BLL.Interfaces;
+using BLL.Interface;
 using BLL.Model;
 using DAL.Data;
 using DAL.Repository;

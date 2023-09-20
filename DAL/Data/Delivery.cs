@@ -17,13 +17,17 @@ namespace DAL.Data
         public int CustomerId { get; set; } 
         public Customer Customer { get; set; }
 
+        [ForeignKey("DeliveryPersonId")]
         public string DeliveryPersonId { get; set; }
         public DeliveryPersons DeliveryPersons { get; set; }
-        //[ForeignKey("Manager")]
+        
+        [ForeignKey("ManagerId")]
         public string ManagerId { get; set; }
         public Manager Manager { get; set; }
 
         public List<Comment> Comment { get; set; }
-        public List<DeliveryProducts> Products { get; set; }
+        public List<DeliveryProducts> DeliveryProducts { get; set; }
+        public List<Product> Products { get; set; }
+
     }
 }

@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace DAL.Enums
 {
-    public enum Status
+    public class Status
     {
-        New,
-        Scheduled,
-        Done
+        public const string Done = "Don";
+        public const string Scheduled = "Scheduled";
+        public const string NewDelivery = "NewDelivery";
     }
 }

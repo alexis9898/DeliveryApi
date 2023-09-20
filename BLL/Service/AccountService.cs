@@ -1,6 +1,7 @@
-﻿using BLL.Interfaces;
+﻿using BLL.Interface;
 using BLL.Model;
 using DAL.Data;
+using DAL.Enums;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -32,32 +33,31 @@ namespace BLL.Service
             _configuration = configuration;
         }
 
-        public async Task<IdentityResult> SignUp(SignUpModel signUpModel)
+        public async Task<bool> SignUp(SignUpModel signUpModel)
         {
-            var user = new User()
-            {
-                UserName = signUpModel.UserName,
-                
-            };
-
-            return await _userManager.CreateAsync(user,signUpModel.Password);
+            var createdUser =await SaveUser(signUpModel);
+            if (createdUser == null) return false;
+            return true;
+    
         }
 
         public async Task<UserModel> LoginAsync(SignInModel signInModel)
         {
             var result= await _signInManager.PasswordSignInAsync(signInModel.UserName, signInModel.Password,false,false);
+            
 
             if (!result.Succeeded)
             {
                 return null;
             }
             var user = await _userManager.FindByNameAsync(signInModel.UserName);
+            var roles = await _userManager.GetRolesAsync(user);
             var id = user.Id;
             var token = generateToken(signInModel.UserName);
             var _token = new JwtSecurityTokenHandler().WriteToken(token);
             var exp = token.ValidTo.Date;
 
-            return new UserModel() { Id = id, Name = signInModel.UserName, _token = _token, _tokenExpirationDate = exp};
+            return new UserModel() { Id = id, Name = signInModel.UserName, Role = roles[0], _token = _token, _tokenExpirationDate = exp};
         }
          
         private JwtSecurityToken generateToken(string UserName)
@@ -83,6 +83,48 @@ namespace BLL.Service
             /*tokenDetails[0] = new JwtSecurityTokenHandler().WriteToken(token);
             var a = token.ValidTo;*/
             return token;
+        }
+
+
+        public async Task<User> SaveUser(SignUpModel signUp)
+        {
+            var user = new User()
+            {
+                UserName = signUp.UserName,
+                PhoneNumber = signUp.Phone,
+            };
+
+            if (signUp.Role != Role.Manager && signUp.Role != Role.DeliveryPersons)
+                return null;
+                        var result = await _userManager.CreateAsync(user, signUp.Password);
+
+            if (result.Succeeded)
+            {
+                var createdUser = await _userManager.FindByNameAsync(signUp.UserName);
+                if (createdUser != null) 
+                {
+                    await _userManager.AddToRoleAsync(createdUser, signUp.Role);
+                    return createdUser;
+                }
+                return null;
+            }
+            else return null;
+        }
+
+        public async Task<UserDataModel> FindUserById(string id)
+        {
+            var user=await _userManager.FindByIdAsync(id);
+            if(user == null)
+                return null;
+            var role = await _userManager.GetRolesAsync(user);
+            var userModel = new UserDataModel()
+            {
+                Id = user.Id,
+                Name = user.UserName,
+                Phone = user.PhoneNumber,
+                Role = role[0]
+            };
+            return userModel;
         }
     }
 }

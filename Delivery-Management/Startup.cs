@@ -1,5 +1,5 @@
 using BLL.Interface;
-using BLL.Interfaces;
+using BLL.Interface;
 using BLL.Service;
 using BLL.Services;
 using DAL.Data;
@@ -38,11 +38,13 @@ namespace Delivery_Management
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IDeliveryRepository, DeliveryRepository>();
+            services.AddScoped<ICommentRepository, CommentRepository>();
             
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IDeliveryService, DeliveryService>();
+            services.AddScoped<ICommentService, CommentService>();
 
 
             services.AddDbContext<AppDataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AppDB")));
@@ -64,6 +66,11 @@ namespace Delivery_Management
                 });
             });
 
+            //services.AddCors(p => p.AddPolicy("corsapp", builder =>
+            //{
+            //    builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+            //}));
+
             services.AddIdentity<User, IdentityRole>(options => {
                 options.Password.RequireDigit = false;
                 options.Password.RequiredLength = 1;
@@ -71,7 +78,7 @@ namespace Delivery_Management
                 options.Password.RequireUppercase = false;
                 options.Password.RequireLowercase = false;
                 //  options.User.RequireUniqueEmail = false;
-                options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+                options.User.AllowedUserNameCharacters = "אבגדהוזחטיכלמנסעפצקרשת";
             }).AddEntityFrameworkStores<AppDataContext>().AddDefaultTokenProviders();
 
             services.AddAuthentication(options =>
@@ -108,6 +115,7 @@ namespace Delivery_Management
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            //app.UseCors("corsapp");
             app.UseCors();
 
             app.UseAuthentication();

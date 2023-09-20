@@ -2,11 +2,14 @@
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 
-namespace BLL.Interfaces
+namespace BLL.Interface
 {
     public interface IAccountService
     {
-        Task<IdentityResult> SignUp(SignUpModel signUpModel);
+        Task<bool> SignUp(SignUpModel signUpModel);
         Task<UserModel> LoginAsync(SignInModel signInModel);
+
+        Task<UserDataModel> FindUserById(string id);
+
     }
 }

@@ -40,20 +40,34 @@ namespace DAL.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
-            modelBuilder.Entity<DeliveryProducts>(entity =>
-            {
-                entity.HasKey(c => new { c.ProductId, c.DeliveryId});
-            });
 
             var delivery = modelBuilder.Entity<Delivery>();
             delivery
                 .HasOne(d => d.Manager)
                 .WithMany(d => d.Deliveries)
-                .HasForeignKey(d => d.ManagerId);
+                .HasForeignKey(d => d.ManagerId)
+                .OnDelete(DeleteBehavior.Restrict);
+                
             delivery
                 .HasOne(d => d.DeliveryPersons)
                 .WithMany(d=>d.Deliveries)
-                .HasForeignKey(d=>d.DeliveryPersonId);
+                .HasForeignKey(d=>d.DeliveryPersonId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<DeliveryProducts>(entity =>
+            {
+                entity.HasKey(c => new { c.ProductId, c.DeliveryId});
+            });
+
+            delivery
+                .HasMany(d => d.Products)
+                .WithMany(p => p.Deliveries)
+                .UsingEntity<DeliveryProducts>(
+                        x=>x.HasOne(a=>a.Product).WithMany(a=>a.DeliveryProducts).HasForeignKey(a=>a.ProductId),
+                        x=> x.HasOne(a => a.Delivery).WithMany(a=>a.DeliveryProducts).HasForeignKey(a=>a.DeliveryId)
+                );
+             
+                
             /* var character =modelBuilder.Entity<Character>();
              character
                  .HasOne(u => u.User)

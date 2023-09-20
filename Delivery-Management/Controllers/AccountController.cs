@@ -1,11 +1,14 @@
-﻿using BLL.Interfaces;
+﻿using BLL.Interface;
 using BLL.Model;
+using DAL.Enums;
 using DAL.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 
-namespace AppStore.Controllers
+namespace Delivery_Management.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -18,25 +21,44 @@ namespace AppStore.Controllers
         }
 
         [HttpPost("signUp")]
+        /*[Authorize(Roles = Role.Manager)]*/
         public async Task<IActionResult> SignUp([FromBody] SignUpModel signUpModel)
         {
-            var result=await _accountReposity.SignUp(signUpModel);
-            if (result.Succeeded)
+            try
             {
-                return Ok(result);
+                var result = await _accountReposity.SignUp(signUpModel);
+                if (result)
+                {
+                    return Ok();
+                }
+                return BadRequest();
             }
-            return Unauthorized();
+            catch (Exception)
+            {
+
+                return BadRequest();
+            }
+            
         }
 
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] SignInModel signInModel)
         {
-            var result = await _accountReposity.LoginAsync(signInModel);
-            if (result == null)
+            try
             {
-                return Unauthorized();
+                var result = await _accountReposity.LoginAsync(signInModel);
+                if (result == null)
+                {
+                    return Unauthorized(new {message = "FAILED_LOGIN" });
+                }
+                return Ok(result);
             }
-            return Ok(result);
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
         }
     }
 }
